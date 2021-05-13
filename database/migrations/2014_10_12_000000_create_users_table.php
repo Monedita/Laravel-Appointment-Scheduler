@@ -17,6 +17,8 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            //string and not integer because integer dont record 0 at the left, etc.
+            $table->string('phone', 20);
             // I add the admin field and make it a boolean
             $table->boolean('admin')->default(false);
             $table->timestamp('email_verified_at')->nullable();

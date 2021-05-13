@@ -11,7 +11,8 @@
         {{ \Carbon\Carbon::parse($appointment->date)->format('l d/m/y') }} - {{ $appointment->hour }} Hs. - {{ $appointment->user->name }}
       </div>
       <div class="text-left">
-        <b>Treatment:</b> {{ $appointment->treatment }}
+        <p class="inline-block"><b>Treatment:</b> {{ $appointment->treatment }}</p>
+        <p class="hidden md:inline-block"><b>- Phone N°:</b> {{ $appointment->user->phone }}.</p>
       </div>
       <div class="flex flex-row-reverse gap-2">   
         <form action="{{ route('edit', $appointment) }}" method="POST">
@@ -25,6 +26,11 @@
         <a href="mailto: {{ $appointment->user->email }}">
           <x-button-normal>
             Email
+          </x-button-normal>
+        </a>
+        <a class="md:hidden" href="tel:{{ $appointment->user->phone }}">
+          <x-button-normal>
+            Phone Call
           </x-button-normal>
         </a>
       </div>
