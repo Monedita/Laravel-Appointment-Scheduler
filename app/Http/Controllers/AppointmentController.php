@@ -37,11 +37,11 @@ class AppointmentController extends Controller
             $days = [];
             for ($d = 0; $d <= 4; $d++)
             {
-                //I check if it is Saturday or Sunday
+                //I check if the day is workable in the constants configuration
                 $numberOfDay = $myDateTime->format("N");
-                while ($numberOfDay == "6" || $numberOfDay == "7")
+                while (config('constants.scheduler.'.$numberOfDay.'') == false)
                 {
-                    //If so, I add 1 day until it is a working day
+                    //If it isn´t, I add 1 day until it is a working day
                     date_add($myDateTime, date_interval_create_from_date_string("1 day"));
                     $numberOfDay = $myDateTime->format("N");
                 }
@@ -66,7 +66,7 @@ class AppointmentController extends Controller
             $scheduler = [];
             for ($d = 0; $d <= 4; $d++)
             {
-                for ($h = 8; $h < 16; $h++)
+                for ($h = config('constants.scheduler.start_hour'); $h < config('constants.scheduler.end_hour'); $h++)
                 {
                     $scheduler[$days[$d]][$h] = $h;
                     if (isset($appointments[$days[$d]][$h]))
@@ -115,9 +115,9 @@ class AppointmentController extends Controller
             $days = [];
             for ($d = 0; $d <= 4; $d++)
             {
-                //I check if it is Saturday or Sunday
+                //I check if the day is workable in the constants configuration
                 $numberOfDay = $myDateTime->format("N");
-                while ($numberOfDay == "6" || $numberOfDay == "7")
+                while (config('constants.scheduler.'.$numberOfDay.'') == false)
                 {
                     //If so, I add 1 day until it is a working day
                     date_add($myDateTime, date_interval_create_from_date_string("1 day"));

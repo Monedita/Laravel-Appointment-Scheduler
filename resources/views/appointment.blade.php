@@ -11,7 +11,7 @@
             shift schedule
         </h2>
 
-        <div class="hidden md:grid grid-cols-9 gap-2">
+        <div class="hidden md:grid grid-cols-{{config('constants.scheduler.end_hour') - config('constants.scheduler.start_hour') + 1}} gap-2">
             @foreach($scheduler as $day => $hours)
                 <div class="cursor-default py-2 bg-indigo-600 border-b-2"><b>
                     {{ \Carbon\Carbon::parse($day)->format('d/m/y') }}
@@ -28,9 +28,9 @@
             @endforeach
         </div>
 
-        <div class="grid grid-cols-5 gap-2 md:hidden">
+        <div class="grid grid-cols-{{config('constants.scheduler.workable_days')}} gap-2 md:hidden">
             @foreach($scheduler as $day => $hours)
-                <div class="grid grid-row-9 gap-2">
+                <div class="grid grid-row-{{config('constants.scheduler.end_hour') - config('constants.scheduler.start_hour')}} gap-2">
                 <div class="cursor-default py-2 bg-indigo-600 border-r-2"><b>
                     {{ \Carbon\Carbon::parse($day)->format('d/m/y') }}
                 </b></div>
